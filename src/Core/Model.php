@@ -160,16 +160,20 @@ class Model {
     public static function ChangeAvatar($avatar){
         $user = $_SESSION['id'];
         if(isset($_POST['avatar'])){
-            var_dump($user);
-            var_dump($avatar);
-                // return self::getInstance()->prepare("UPDATE users SET avatar = $avatar WHERE id_users=$user")->execute();
+                return self::getInstance()->prepare("UPDATE users SET avatar = '$avatar' WHERE id_users=$user")->execute();
         }
     }
 
-    public static function GetProject(){
+    public static function GetAffectation(){
         if (Security::isConnected()){
             $user = $_SESSION['id'];
             $query = self::getInstance()->query("SELECT * FROM affectation WHERE id_users = $user");
+            return $query->fetchAll();
+        }
+    }
+    public static function GetProject(){
+        if (Security::isConnected()){
+            $query = self::getInstance()->query("SELECT * FROM projets");
             return $query->fetchAll();
         }
     }

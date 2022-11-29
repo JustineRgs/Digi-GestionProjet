@@ -98,7 +98,7 @@ class UserController
                 }
             }
 
-            $fichier = md5(uniqid(rand(), true));
+            $fichier = 'avatar_'.$_SESSION['id'];
             $fichier .= '.'.$fichier_extension;
             $resultat = move_uploaded_file($_FILES['file']['tmp_name'], $dossier.$fichier);
             // var_dump($_FILES['file']['tmp_name'], $dossier.$fichier);

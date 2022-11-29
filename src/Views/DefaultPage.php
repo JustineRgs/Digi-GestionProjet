@@ -21,24 +21,35 @@
 <?php else:
 
 echo '<h2>'.$title.'</h2>';
-
-foreach($pro as $user => $key){
-    foreach($key as $k=>$l){
-        
 ?>
 <table>
-    <tr>
-        <th><?php echo $k ?></th>
-    </tr>
-    <tr>
-        <td><?php echo $l ?></td>
-    </tr>
-</table>
-
 <?php
+foreach($pro as $user => $key){
+    foreach($key as $k){
+        ?>
+         <tr>
+            <th><?php echo $user ?></th>
+        </tr>
+        <tr>
+            <td><?php echo $k ?></td>
+        </tr>
+        <?php
     }
 }
+
+$proS = count($pro);
+echo $proS;
+// for($i=0;$i<$proS;$i++){
+
+// }
 ?>
+    
+
+
+
+
+?>
+</table>
 <form method='POST' action='index.php?page=createproject'>
     <input type='submit' name='submit' value="Créer un nouveau projet">
 </form>
