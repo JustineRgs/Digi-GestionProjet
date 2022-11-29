@@ -9,7 +9,7 @@ class Users extends Model {
     private $prenom;
     private $mail;
     private $pwd;
-    private $avatar;
+    private $avatar = NULL;
 
     /**
      * Get the value of mail

@@ -8,5 +8,5 @@ if (isset($message)) {
 <form method='POST' action=''>
     <input type='text' name='ProjectName' placeholder='Nom du projet' required>
     <input type='submit' name='SubmitTask' value="Ajouter une tache">
-    <input type='submit' name='submitPro' value="Créer">
+    <input type='submit' name='submitPro' class = 'submit' value="Créer">
 </form>

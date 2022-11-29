@@ -11,12 +11,12 @@
 <form method='POST' action=''>
     <input type='text' method="POST" name='mail' placeholder='Votre email'>
     <input type='password' name='pwd' placeholder="Votre mot de passe">
-    <input type='submit' name='connect' value='Se connecter'>
+    <input type='submit' name='connect' class = 'submit' value='Se connecter'>
 </form>
 
 <p class='compte'>Vous n'avez pas de compte? </p>
 <form method="POST" action='http://localhost/GestionProjet/index.php?page=profile&user=register'>
-    <input type='submit' name='show' value='Créer un Compte'>
+    <input type='submit' name='show' class = 'submit' value='Créer un Compte'>
 </form>
 <?php else:
 
@@ -51,6 +51,6 @@ echo $proS;
 ?>
 </table>
 <form method='POST' action='index.php?page=createproject'>
-    <input type='submit' name='submit' value="Créer un nouveau projet">
+    <input type='submit' name='submit' class = 'submit' value="Nouveau projet !">
 </form>
 <?php endif; ?>

@@ -12,7 +12,7 @@ use Formation\MonApp\Model\Users;
 class DefaultPage extends Model{
 
     public function __construct(){
-        $view = new Views('DefaultPage', 'Accueil');
+        $view = new Views('DefaultPage', '');
         if (isset($_POST['connect'])) {
             Security::ConnectUser();
         }
@@ -26,7 +26,7 @@ class DefaultPage extends Model{
         }
         $pro = Projets::GetProject();
         $view->setVar('pro', $pro);
-        $view->setVar('message','Bienvenue sur mon appli');
+        $view->setVar('message','Vos réalisations en cours');
         $view->render();
     }
 

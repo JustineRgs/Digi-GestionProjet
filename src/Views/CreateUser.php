@@ -11,5 +11,5 @@ if (isset($message)) {
     <input type='email' name='mail' placeholder='Votre mail'>
     <input type='password' name='pwd' placeholder='Votre mot de passe'>
     <input type='password' name='confirmpwd' placeholder='Confirmez le mot de passe'>
-    <input type='submit' name='create' value="enregistrer">
+    <input type='submit' name='create' class = 'submit' value="enregistrer">
 </form>

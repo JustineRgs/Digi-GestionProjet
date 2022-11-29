@@ -30,5 +30,5 @@ echo '<h2>'.$title.'</h2>';
 <form method='POST' action=''>
     <input type='text' name='ProjectName' placeholder='Nom du projet' required>
     <input type='submit' name='SubmitTask' value="Ajouter une tache">
-    <input type='submit' name='submit' value="Créer">
+    <input type='submit' name='submit' class='submit' value="Créer">
 </form>

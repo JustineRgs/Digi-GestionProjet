@@ -1,29 +1,69 @@
-<?php  echo' <style type="text/css">
+<?php  
+echo' <style type="text/css">
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 body, html{   
-    background-image : url(../views/assets/image/Background.jpg);
+    background-image : url("../image/Background.jpg");
     padding: 0;
     margin: 0;
     width: 100%;
+    font-family: "Poppins";
+    font-size : 13px;
 }
-.main_container{    
+
+p {
+    margin : 0;
+}
+
+h2 {
+    font-size : 16px;
+}
+
+form {
+    display : block;
+}
+
+.top_ctn_prof {
     display: flex;
-    align-items: center;
-    justify-content: center;    
-    width: 100%;
+    margin : 40px 0 0 40px;
 }
-.ctn_wtd{    
-    display: flex;
-    flex-direction: column;
-    max-width: 78vw;
+
+main {
+    width : 90%;
+    margin : 30px auto;
 }
-h2{
-    text-align: center;
-    
+
+.submit {
+    padding : 10px;
+    background-color : #7287F1;
+    color : #fefefe;
+    text-align : center;
+    font-weight : bold;
+    border : 0;
+    border-radius : 10px;
+    width : 135px;
+    cursor: pointer;
+    margin: 5px;
 }
-form{
-    align-items: center;
-    justify-content: center;    
-    width: 100%;
+
+.profile_photo_ctn {
+    margin : 5px;
+}
+
+.img_pro{
+    border : solid 1px;
+    border-radius : 50px;
+}
+
+.info_user_prof{
+    vertical-align: middle;
+}
+
+.fst_prof_edit {
+
+form {
+    display : flex;
+    flex-direction : column;
+}
 
 </style>'
 
