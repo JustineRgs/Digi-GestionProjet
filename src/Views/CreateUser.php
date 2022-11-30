@@ -1,6 +1,7 @@
 <?php
 echo '<h2>'.$title.'</h2>';
 ?>
+
 <a href='index.php' class="submit_back">< J'ai déjà un compte</a>
 <div class="card">
     <form method='POST' action=''>

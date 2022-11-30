@@ -4,6 +4,7 @@ namespace Formation\MonApp\Controller;
 
 use Formation\MonApp\Core\Security;
 use Formation\MonApp\Core\Validate;
+use Formation\MonApp\Core\Model;
 use Formation\MonApp\Core\Views;
 use Formation\MonApp\Model\Users;
 
@@ -119,17 +120,63 @@ class UserController
 
     // Photo de profil, creation d'un dossier, verif de lextension et update de avatar users
 
-    public function createUser()
-    {
+    public function createUser(){
         $view = new Views('CreateUser', 'Création d\'un utilisateur');
         if (isset($_POST['create'])) {
             if (($message = $this->isValid()) === '') {
                 unset($_POST['create']);
                 unset($_POST['confirmpwd']);
                 $_POST['pwd'] = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
-                $_POST['avatar'] = 'avatardefault.png';
+                // $_POST['avatar'] = 'avatardefault.png';
                 if (Users::create()) {
-                    echo 'L\'utilisateur a bien été créé';
+                    if (isset($_GET['project'])){
+                        Users::AddUserToProject();
+                    }
+                    // $user = Users::getAll(); // Debut
+                    // $userOk = false;
+                    // foreach($user as $use=>$key){
+                    //     foreach($key as $k=>$value){
+                    //         if($value === 'prenom' && $value === $_POST['prenom'] && $value === 'nom' && $value['nom'] === $_POST['nom'] && $value === 'mail' && $value['mail'] === $_POST['mail']){
+                    //             $userOk = true;
+                    //         }
+                    //         var_dump($value);
+                    //         echo($k);
+                    //         if($key === 'id'){
+                    //             $use = $key;
+                    //         }
+                    //     }
+                    // }
+
+                    // if($userOk = true){
+                    //     Model::getSession('users', $use);
+                    //     $tab = $user[0]; //Récupération des valeurs de use dans tab;
+                    //     foreach($tab as $key=>$value){  // Parcours du tableau
+                    //         if($key == 'prenom'){  // Récupération des valeurs de key et vérification de ressemblance
+                    //             $_SESSION['prenom'] = $value; // Assignation de la valeur aux SESSION
+                    //         }
+                    //         if($key == 'nom'){
+                    //             $_SESSION['nom'] = $value;
+                    //         }
+                    //         if($key == 'mail'){
+                    //             $_SESSION['mail'] = $value;
+                    //         }
+                    //         if($key == 'avatar'){
+                    //             $_SESSION['avatar']= $value;
+                    //         }
+                    //         if($key == 'id'){
+                    //             $_SESSION['id'] = $value;
+                    //         }
+                    //         if($key == 'pwd'){
+                    //             $_SESSION['pwd'] = $value;
+                    //         }
+                    //     }
+                    //     $_SESSION['connected'] = true;
+                    //     $connected = true;
+                    //     Security::isConnected();
+                        header('Location: index.php');
+                        echo 'L\'utilisateur a bien été créé';
+                    // }
+                    
                 } else {
                     echo "Une erreur est survenue";
                 }

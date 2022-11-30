@@ -12,13 +12,13 @@ class Security {
         if (isset($_SESSION['connected']) && $_SESSION['connected'] === true) {
             return true;
         }
-        // session_destroy();
         return false;
     }
 
     public static function ConnectUser() {
         $user = $_POST['mail'];
         $pwd = $_POST['pwd'];
+        $mess = '';
         $searchUser = Users::getByAttribute('mail',$user);
         if (count($searchUser) >= 1){
             $id = Model::getId('users','users', 'mail' ,$user); // Récupération de l'ID de l'utilisateur connecté
@@ -45,10 +45,10 @@ class Security {
                 $_SESSION['id'] = $id;
                 $_SESSION['pwd'] = $pwd;
             } else {
-                echo 'Mauvais mot de passe!';
+                echo '<p class = "erreur erreur_co">Votre mot de passe est incorrect</p>';
             }
         } else {
-            echo 'Mauvaise adresse mail ou mauvais mot de passe!';
+            echo '<p class = "erreur erreur_co">Votre mail ou votre mot de passe est incorrect</p>';
         }
     }
 }

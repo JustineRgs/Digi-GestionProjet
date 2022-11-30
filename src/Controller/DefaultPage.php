@@ -17,9 +17,6 @@ class DefaultPage extends Model{
         if (isset($_POST['connect'])) {
             Security::ConnectUser();
         }
-        // if (isset($_POST['create'])) {
-        //     UserController->createUser();
-        // }
         if (Security::isConnected()) {
             $view->setVar('connected', true);
             $view->setVar('message','Vos réalisations en cours');
@@ -36,6 +33,21 @@ class DefaultPage extends Model{
         $tasks = Projets::GetTaches();
         $view -> setVar('tasks', $tasks);
         // Fin taches
+
+        if(Security::isConnected()){
+            $id_user = $_SESSION['id'];
+            if(isset($_GET['delete'])){
+                Model::DelUser($id_user);
+                session_destroy();
+                header('location: index.php');
+            }
+            if(isset($_GET['deleteU'])){ // recup de la $_GET deteleU
+                Projets::DelUserProject(); // fonction creer dans Model
+                $modifp = $_GET['pagemodif'];
+                header("location: index.php?page=project&update=$modifp");
+            }
+        }
+        
 
         $view->render();
     }

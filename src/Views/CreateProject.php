@@ -10,7 +10,6 @@ echo '<h2>'.$title.'</h2>';
     ?>
     <form method='POST' action=''>
         <input type='text' name='ProjectName' class= 'form_item' placeholder='Nom du projet' required>
-        <!-- <input type='submit' name='SubmitTask' class= 'form_item' value="Ajouter une tache"> -->
         <input type='submit' name='submitPro' class = 'submit' value="Créer">
     </form>
 </div>

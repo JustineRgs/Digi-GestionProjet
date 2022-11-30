@@ -16,8 +16,9 @@ echo '<h2>'.$title.'</h2>';
         <input type="radio" name="priorite" value="tres_important" /> Trés important
         <input type="radio" name="priorite" value="important" /> Important
         <input type="radio" name="priorite" value="moins_important" /> Moins important
-        <label for="description">Description</label> 
-        <input type='text' name='description' placeholder='Décrivez la tache en quelques lignes' required>
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description">
+        <!-- <textarea name="description" placeholder='Décrivez la tache en quelques lignes'></textarea> N'est pas un type input et donc fait buguer l'insert en bdd  -->
         <label>Affilier un utilisateur à cette tache</label> 
         <input type='email' name='mail' required>
         <input type="submit" name='create' value='Créer une tâche'>

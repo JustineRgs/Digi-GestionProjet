@@ -1,12 +1,15 @@
 <?php 
-
 echo'<style type="text/css">
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 
 *,
 :before,
 :after {
   box-sizing: border-box;
 }
+
 
 html {
   font-size: 125%;
@@ -16,10 +19,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 body{   
   background-color: #ebebeb;
-  background-image:url(Background.jpg);
-  background-repeat:no-repeat;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -27,17 +29,20 @@ body{
   font-size: 13px;
 }
 
+
 h1 {
   margin : 0;
   font-size: 23px; 
   font-weight: normal;
 }
 
+
 h2 {
   font-size: 20px;
   text-align: center;
   margin-bottom : 35px;
 }
+
 
 h3 {
   font-size: 18px;
@@ -46,25 +51,33 @@ h3 {
   color : #15d49f
 }
 
+
 p {
   margin : 0;
 }
 
-ul,
-ol {
-  margin: 0;
-}
 
 ul,
 ol {
+  margin: 0;
   list-style: none;
   padding-left: 0;
 }
+
 
 a {
   color: inherit;
   text-decoration: underline;
 }
+
+
+img,
+video {
+  max-width: 100%;
+  vertical-align: middle;
+  height: auto;
+}
+
 
 button {
   padding: 0;
@@ -75,21 +88,6 @@ button {
   cursor: pointer;
 }
 
-img,
-video {
-  max-width: 100%;
-  vertical-align: middle;
-}
-
-img,
-video {
-  height: auto;
-}
-
-ion-icon {
-  vertical-align:middle;
-}
 
 </style>'
-
 ?>

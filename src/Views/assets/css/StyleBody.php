@@ -1,8 +1,5 @@
 <?php  
-
 echo' <style type="text/css">
-
-
 
 .page {
     width: 90%;
@@ -24,30 +21,6 @@ main {
 }
 
 
-table {
-    width: 80%;
-    margin: 0 auto 35px auto;
-}
-
-
-td {
-    width: 15%;
-    padding: 10px 0;
-}
-
-
-.ligne{
-    background-color: #647dff38;
-    text-align: center
-}
-
-
-.ligne_delete {
-    width: 10%;
-    font-size: 20px;
-}
-
-
 .submit {
     padding : 10px;
     background-color : #7287F1;
@@ -58,7 +31,7 @@ td {
     border-radius : 10px;
     width : 135px;
     cursor: pointer;
-    margin: auto;
+    margin: 10px auto;
 }
 
 
@@ -128,6 +101,17 @@ margin: auto;
     height: 145px;
 }
 
+.user {
+    margin : 20px auto;
+
+}
+
+.ul_user {
+    display: flex;
+    width: 80%;
+    justify-content : center;
+    margin: auto;
+}
 
 .add_count {
     display: flex;
@@ -152,16 +136,21 @@ margin: auto;
     margin-top: 50px;
 }
 
+
 #t_important {
     color : red;
 }
+
 
 #important {
     color : orange;
 }
 
+
 #p_important {
     color : #46cd46;
 }
+
+
 </style>'
 ?>
