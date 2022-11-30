@@ -4,12 +4,12 @@ namespace Formation\MonApp\Model;
 use Formation\MonApp\Core\Model;
 
 class Users extends Model {
-    private $id_users;
-    private $nom;
-    private $prenom;
-    private $mail;
+    public $id_users;
+    public $nom;
+    public $prenom;
+    public $mail;
     private $pwd;
-    private $avatar = NULL;
+    public $avatar;
 
     /**
      * Get the value of mail
@@ -97,5 +97,25 @@ class Users extends Model {
     public function setIdUsers($id_users): void
     {
         $this->id_users = $id_users;
+    }
+
+    /**
+     * Get the value of avatar
+     */ 
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set the value of avatar
+     *
+     * @return  self
+     */ 
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 }

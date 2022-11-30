@@ -1,34 +1,24 @@
 <?php
-
 echo '<h2>'.$title.'</h2>';
-
 ?>
-<table>
-    <tr>
-        <th>Titre</th>
-        <td>Titre</td>
-    </tr>
-    <tr>
-        <th>Elements</th>
-        <td>Elements</td>
-    </tr>
-</table>
+<a href='index.php' class="submit_back">< Retour à l'accueil</a>
+<div class="card">
 
-<?php
 
-// echo $_SESSION['pwd'].'<br>';
-// echo $_SESSION['id'].'<br>';
-// echo $_SESSION['prenom'].'<br>';
-// echo $_SESSION['nom'].'<br>';
-// echo $_SESSION['mail'].'<br>';
+<h3>Titre du Projet</h3>
+<p><?php echo $project_title?></p>
+<h3>Liste des tâches</h3>
+<?php foreach ($tasks as $task){ if ($task['id_projet'] === $_GET['show']){?>
+    <div>
+    <h4>Titre: <?php echo $task['task_name'] ?></h4>
+    <p>Description: <?php echo $task['description'] ?></p>
+    <p>Priorité: <?php echo $task['priorite'] ?></p>
+    <p>Utilisateur assigné: <?php echo $task['prenom'].' '.$task['lastname'] ?></p>
+    <p>État: <?php echo $task['etat']?></p>
+</div>
+<?php }}?>
 
-?>
-<form method='POST' action=''>
-    <input type='submit' name='submit' value="Créer un nouveau projet">
+<form method="POST" action="index.php?page=project&create_task=<?php echo $_GET['show']?>">
+    <input type="submit" class='submit' value="Créer une tâche">
 </form>
-<!-- quand on clique sur 'creer un nouveau projet' -->
-<form method='POST' action=''>
-    <input type='text' name='ProjectName' placeholder='Nom du projet' required>
-    <input type='submit' name='SubmitTask' value="Ajouter une tache">
-    <input type='submit' name='submit' class='submit' value="Créer">
-</form>
+    

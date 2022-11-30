@@ -1,34 +1,37 @@
+<div class="page">
 <header>
 <?php
 
 use Formation\MonApp\Model\Users;
 
- include ("src/Views/assets/css/StyleHead.php") 
+ include ("src/Views/assets/css/StyleHead.php");
+ include ("src/Views/assets/css/Setup.php");
 // include ("src/Views/assets/css/StyleForm.php")
 // include ('src/Views/assets/Css/Style.php')
 ?>
     <nav>
-        <a href='index.php'>Accueil</a>
         <?php
             if (isset($connected) && $connected === true) :
         ?>
 
-        <div class="top_ctn_prof">
-            <div class="profile_photo_ctn">
+        <div class="profil_content">
+            <div class="profil_img">
+                <a href='index.php'>
                 <img class="img_pro" src="
-                <?php 
-                $avatar = Users::getByAttribute('id_users', $_SESSION['id']);
-                foreach ($avatar[0] as $key => $value){
-                    if ($key === 'avatar'){
+                <?php
+                $avatar = Users::getSession('users' ,$_SESSION['id']);
+                foreach($avatar[0] as $key => $value){
+                    if($key === 'avatar'){
                         $avatar = $value;
                     }
                 }
                 echo 'upload/'.$_SESSION['id'].'/album/'.$avatar;
                 ?>
-                " alt="" width="50px" height="50px">
+                " alt="">
+                </a>
             </div>
-            <div class="info_user_prof">
-                <p>Bienvenue <?php echo $_SESSION['prenom']; ?> !</p>
+            <div class="nav_perso">
+                <h1>Bienvenue <?php echo $_SESSION['prenom']; ?> !</h1>
                 <div class="edi_dec_prof">
                     <a href='index.php?page=profile'>Editer mon profil</a>
                     <a href='index.php?page=index&session=0'>Déconnexion</a>

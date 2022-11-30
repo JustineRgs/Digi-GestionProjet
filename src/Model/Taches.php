@@ -6,9 +6,12 @@ use Formation\MonApp\Core\Model;
 
 class Taches  extends Model {
     private $id_taches;
-    private $nom;
-    private $description;
-    private $priorite;
+    public $nom;
+    public $description;
+    public $priorite;
+    private $id_users;
+    private $id_projet;
+    private $id_cycle;
 
 
     /**

@@ -20,7 +20,7 @@ class Dispatcher {
                 // case 'afficheusers':
                 //     new UserController();
                 //     break;
-                case 'createproject':
+                case 'project':
                     new ProjectController();
                     break;
                 case 'profile':

@@ -37,6 +37,9 @@ class Security {
                     if($key == 'mail'){
                         $_SESSION['mail'] = $value;
                     }
+                    if($key == 'avatar'){
+                        $_SESSION['avatar']= $value;
+                    }
                 }
                 $_SESSION['connected'] = true;
                 $_SESSION['id'] = $id;

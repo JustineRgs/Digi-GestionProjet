@@ -8,7 +8,7 @@ class Projets  extends Model {
 
     private $id_projets;
 
-    private $nom;   
+    public $nom;   
 
 
 

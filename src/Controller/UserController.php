@@ -37,9 +37,8 @@ class UserController
         }
     }
 
-    public function AfficheUsers()
-    {
-        $view = new Views('Profile', 'Bienvenue sur ton profil');
+    public function AfficheUsers(){
+        $view = new Views('Profile', 'Votre profil');
         if (Security::isConnected()) {
             $view->setVar('connected', true);
         } else {
@@ -128,6 +127,7 @@ class UserController
                 unset($_POST['create']);
                 unset($_POST['confirmpwd']);
                 $_POST['pwd'] = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+                $_POST['avatar'] = 'avatardefault.png';
                 if (Users::create()) {
                     echo 'L\'utilisateur a bien été créé';
                 } else {

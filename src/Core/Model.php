@@ -1,4 +1,5 @@
 <?php
+
 namespace Formation\MonApp\Core;
 
 use Formation\MonApp\Model\Users;
@@ -67,6 +68,8 @@ class Model {
         return self::getInstance()->prepare($sql)->execute($vars[1]);
     }
 
+    
+
     public static function affect(){ // Fonction permettant de créer et d'affecter un projet et un utilisateur
         self::create(); // Utilisation de la fonction create
         self::$onaffect = true; // Changement de la variable onaffect en true (agis sur la fonction clear)
@@ -93,6 +96,7 @@ class Model {
         $sql = substr($sql,0,strlen($sql)-1);
         $sql .= " where id=".$_GET['update'];
         $vars = self::clear();
+        unset($vars[1]['id']);
         return self::getInstance()->prepare($sql)->execute($vars[1]);
     }
 
@@ -117,7 +121,7 @@ class Model {
         unset($_POST['create']);
         if (self::$onaffect === true){ // Condition pour séparer la fonction de base et son utilisation lors de l'affection
             $return[] = ''; // Déclaration et affectation vide du tableau $return
-            if ($_GET['page'] === 'createproject') {
+            if ($_GET['page'] === 'project' && !isset($_GET['create_task'])) {
                 $return[1][0] = $_SESSION['id']; // Utilisation de l'ID utilisateur stocker dans la session
             }
             foreach ($_POST as $key=>$value) {
@@ -126,7 +130,7 @@ class Model {
         } else {
             $return[] = ':id';
             if (isset($_GET['page'])) {
-                if (isset($_GET['user']) || $_GET['page'] === 'createproject')
+                if (isset($_GET['user']) || $_GET['page'] === 'project')
                 $return[1]['id'] = null;
             }
             foreach ($_POST as $key=>$value) {
@@ -167,7 +171,7 @@ class Model {
     public static function GetAffectation(){
         if (Security::isConnected()){
             $user = $_SESSION['id'];
-            $query = self::getInstance()->query("SELECT * FROM affectation WHERE id_users = $user");
+            $query = self::getInstance()->query("SELECT * FROM projets JOIN affectation ON projets.id_projet = affectation.id_projet WHERE affectation.id_users = $user");
             return $query->fetchAll();
         }
     }
@@ -175,6 +179,19 @@ class Model {
         if (Security::isConnected()){
             $query = self::getInstance()->query("SELECT * FROM projets");
             return $query->fetchAll();
+        }
+    }
+    public static function GetTaches(){
+        if (Security::isConnected()){
+            $user = $_SESSION['id'];
+            $query = self::getInstance()->query("SELECT *, taches.nom as 'task_name', u.nom as 'lastname' FROM taches JOIN users u ON taches.id_users = u.id_users JOIN projets p ON taches.id_projet = p.id_projet JOIN cycle_vie c ON taches.id_cycle = c.id_cycle WHERE taches.id_users = $user");
+            return $query->fetchAll();
+        }
+    }
+    // DELETE
+    public static function DelProjet($id_pro){
+        if (Security::isConnected()){
+            return self::getInstance()->prepare("DELETE FROM projets WHERE id_projet = $id_pro")->execute();
         }
     }
 }
