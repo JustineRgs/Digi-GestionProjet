@@ -25,9 +25,24 @@ main {
 
 
 table {
-    border : solid 1px pink;
+    width: 80%;
+    margin: 0 auto 35px auto;
 }
 
+td {
+    width: 15%;
+    padding: 10px 0;
+}
+
+.ligne{
+    background-color: #647dff38;
+    text-align: center
+}
+
+.ligne_delete {
+    width: 10%;
+    font-size: 20px;
+}
 
 .submit {
     padding : 10px;

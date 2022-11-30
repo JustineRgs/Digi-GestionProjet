@@ -18,7 +18,7 @@ if ($connected !== true):
     </form>
     <div class='add_count'>
         <p class='compte'>Vous n'avez pas de compte? </p>
-        <a href='http://localhost/GestionProjet/index.php?page=profile&user=register'>Créer un Compte</a>
+        <a href='index.php?page=profile&user=register'>Créer un Compte</a>
     </div>
     <!-- <form method="POST" action='http://localhost/GestionProjet/index.php?page=profile&user=register">
         <input type='submit' name='show' class = 'submit' value='Créer un Compte'>
@@ -31,18 +31,16 @@ echo '<h2>'.$title.'</h2>';
 <div class="card_pack">
     <div class="card card--Secondary">
         <h3>Vos projets</h3>
-        <table border="1">
+        <table>
         <?php 
             foreach($affec as $projet => $key){ //affec : tableaux des projets en lien à l'ID connecté
                 foreach($key as $k => $v){
                     if ($k === 'nom'){
                     ?>
-                        <tr>
-                            <th><?php echo $k ?></th> <!-- Nom --->
-                            <td><a href="index.php?page=project&show=<?php echo $key['id_projet']?>"><?php echo $v ?></a></td> <!--- intitulé formation --->
-                            <td><a href="index.php?page=project&delete=<?php echo $key['id_projet']?>">Supprimer</a></td>
+                        <tr class="ligne">
+                            <th><a href="index.php?page=project&show=<?php echo $key['id_projet']?>"><?php echo $v ?></a></th> <!--- intitulé formation --->
                             <td><a href="index.php?page=project&update=<?php echo $key['id_projet']?>">Modifier</a></td>
-
+                            <td class="ligne_delete"><a href="index.php?page=project&delete=<?php echo $key['id_projet']?>"><ion-icon name="trash-outline"></ion-icon></a></td>
                         </tr>
                     <?php
                     }

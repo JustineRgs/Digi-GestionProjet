@@ -86,7 +86,9 @@ video {
   height: auto;
 }
 
-
+ion-icon {
+  vertical-align:middle;
+}
 
 </style>'
 

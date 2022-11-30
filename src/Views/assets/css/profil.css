@@ -6,3 +6,14 @@ body, html{
     font-family: "Poppins";
     font-size : 13px;
 }
+
+body{   
+    /* background-color: #ebebeb; */
+    background-image:url(Background.jpg);
+    background-repeat:no-repeat;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    font-family: "Poppins";
+    font-size: 13px;
+  }
