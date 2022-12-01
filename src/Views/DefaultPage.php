@@ -1,14 +1,17 @@
 <?php
-use Formation\MonApp\Model\Users;
-use Formation\MonApp\Model\Projets;
 
+
+// Affichage titre de la page à partir de "New View"
 if (isset($message)) {
     echo '<h2>'.$message.'</h2>';
 }
 
+// Si l'utilisateur n'est pas connecté : formulaire de connexion
 if ($connected !== true):
     ?>
+    <!-- Bloc principal -->
     <div class="card">
+        <!-- Formulaire de connexion -->
         <form method='POST' action=''>
             <label for="">Adresse e-mail :</label>
             <input type='text' method="POST" name='mail' class= 'form_item' placeholder='Adresse e-mail'>
@@ -17,22 +20,27 @@ if ($connected !== true):
             <input type='submit' name='connect' class = 'submit' value='Se connecter'>
         </form>
         
-        <div class='add_count'>
+        <!-- S'il n'as pas de compte : redirection vers create_user -->
+        <div class='add_user_project'>
             <p class='compte'>Vous n'avez pas de compte? </p>
             <a href='index.php?page=profile&user=register'>Créer un Compte</a>
         </div>
     </div>
   
 <?php 
+
+// Si il est connecté : 
 else:
     echo '<h2>'.$title.'</h2>';
 ?>
-
+    <!-- Bloc principal : bloc PROJET et bloc TACHES-->
     <div class="card_pack">
+        <!-- Bloc 1 : Projet -->
         <div class="card card--Secondary">
             <h3>Vos projets</h3>
             <table>
                 <?php 
+                // Si le tableau affect est vide
                 if (count($affec)===0) {
                     echo "<p class='erreur'>Vous n'avez pas encore de projet !</p>";
                 } else {
@@ -41,12 +49,28 @@ else:
                             if ($k === 'nom'){
                                 ?>
                                 <tr class="ligne">
-                                <th><a href="index.php?page=project&show=<?= $key['id_projet']?>"><?= $v ?></a></th> <!--- intitulé formation --->
-                                
-                                <?php if ($key['administrateur'] === '1'){?>
+                                <!-- Nom du projet -->
+                                <th><a href="index.php?page=project&show=<?= $key['id_projet']?>"><?= $v ?></a></th>
+                                <?php 
+                                // Si l'utilisateur est admin : il à accés au boutton suppr et modif
+                                if ($key['administrateur'] === '1'){?>
+                                    <!-- Redirection : Modifier le projet -->
                                     <td><a href="index.php?page=project&update=<?= $key['id_projet']?>">Modifier</a></td>
+                                    <!-- Suppression du projet -->
                                     <td class="ligne_delete"><a href="index.php?page=project&delete=<?= $key['id_projet']?>"><ion-icon name="trash-outline"></ion-icon></a></td>
-                            <?php }?>
+                                    <!-- Fonction : window alert confirmation delete -->
+                                    <script type="text/javascript">
+                                        const btn=document.querySelector('.ligne_delete');
+                                        btn.addEventListener('click', function(){
+                                            event.preventDefault();
+                                            var val = confirm("Etes-vous sûr de vouloir supprimer ce projet?");
+                                            if( val == true ) {
+                                                window.location = "index.php?page=project&delete=<?= $key['id_projet']?>";
+                                            }
+                                        })
+                                    </script>
+                                <?php 
+                                }?>
                                 </tr>
                                 <?php
                             } 
@@ -55,20 +79,23 @@ else:
                 }
                 ?>
             </table>
-
+            <!-- Boutton : créer un nouveau projet -->
             <form method='POST' action='index.php?page=project&create'>
                 <input type='submit' name='submit' class = 'submit' value="Nouveau projet !">            
             </form>
         </div>
 
+        <!-- Bloc 2 : Tâches -->
         <div class="card card--Secondary">
             <h3>Vos tâches</h3>
             <?php
-            foreach ($tasks as $task){
-                if(!$task['id_users'] === $_SESSION['id']){
-                    echo 'Vous n\'avez pas de tâches';
-                }else{                  
+            // Si le tableau tache est vide
+            if (count($tasks)===0) {
+                echo "<p class='erreur'>Vous n'avez pas encore de tâches!</p>";
+            } else {
+                foreach ($tasks as $task){            
                     foreach($affec as $projet => $key){
+                        // Si une tache est affilié à son ID alors elle est affiché
                         if ($task['id_projet'] === $key['id_projet'] && $task['id_users'] === $_SESSION['id']){
                             ?>
                             <table>  
@@ -83,6 +110,7 @@ else:
                                     <td><?= $task['task_name'] ?></td>
                                     <td><?= $task['description'] ?></td>
                                     <td><?= $key['nom'] ?></td>
+                                    <!-- Changement de classe "priorité" pas du tout optimisé :)-->
                                     <td><?php 
                                         if ($task['priorite'] === 'tres_important') {
                                             echo '<p id="t_important">Trés important !</p>';

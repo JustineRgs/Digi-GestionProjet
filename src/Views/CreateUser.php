@@ -2,9 +2,12 @@
 echo '<h2>'.$title.'</h2>';
 ?>
 
+<!-- Boutton retour : page de connexion -->
 <a href='index.php' class="submit_back">< J'ai déjà un compte</a>
+
+<!-- Formulaire : Création d'un utilisateur -->
 <div class="card">
-    <form method='POST' action=''>
+    <form method='POST'>
         <input type='text' name='nom' class= 'form_item' placeholder='Votre nom'>
         <input type='text' name='prenom' class= 'form_item' placeholder='Votre prenom'>
         <input type='email' name='mail' class= 'form_item' placeholder='Votre mail'>

@@ -1,8 +1,6 @@
-    </main>
-    <?php include ("src/Views/assets/css/StyleFooter.php")?>
-        
-            <footer>
-                <div>
+            </main>
+            <footer class="footer">
+                <div class="footer_block">
                     <p>Créateurs :</p>
                     <ul>
                         <li>Justine RAGUES</li>
@@ -11,9 +9,10 @@
                         <li>Anthony DESMARTIN</li>
                         <li>Sébastien SOULIER</li>
                     </ul>
-                <p>Copyright &copy, Tout droit résèrvés !</p>            
-            
-                </div> 
+                </div>
+                <div class="footer_block">
+                <p>Copyright &copy</p>
+                <p>Tout droit résèrvés !</p>        
             </footer>     
         </div> 
     </body>

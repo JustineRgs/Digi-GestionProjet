@@ -1,24 +1,30 @@
 <?php 
+
+//FOOTER
 echo'<style type="text/css">
 
-footer {
-    display: flex;
-    justify-content: center;  
-    background-color: #86D2BD;
-    padding: 30px 0;
-}       
+    .footer {
+        display: flex;
+        justify-content: center;
+        border-top : solid 1px #3d3d3e3b;
+        padding: 20px;
+        margin-top: 60px;
+    }       
 
+    ul {
+        display: flex;
+        wrap: nowrap;
+    }   
 
-footer ul {
-    color: #7287F1;
-    font-size: 1.2em;
+    li {
+        padding: 5px;
+    }
 
-}
-
-footer div p {
-    color: #7287F1; 
-    font-size: 1.2em;
-}
+    .footer_block {
+        text-align: center;
+        width: 40%;
+        margin: auto;
+    }
 
 </style>'
 ?>
