@@ -1,7 +1,7 @@
-<?php  
+<?php
 
 //CORPS
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     .page {
         width: 90%;
@@ -18,9 +18,8 @@ echo' <style type="text/css">
 </style>';
 
 
-
 //SUBMIT
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     .submit {
         padding : 10px;
@@ -32,7 +31,16 @@ echo' <style type="text/css">
         border-radius : 10px;
         width : 135px;
         cursor: pointer;
-        margin: 10px auto;
+        margin: 10px auto 20px;
+    }
+
+    .submit--Secondary {
+        background-color : #15d49f;;
+        margin: 10px auto 30px;
+    }
+
+    .submit-Ter{
+        background-color : red;
     }
 
     .submit_back {
@@ -46,15 +54,18 @@ echo' <style type="text/css">
 </style>';
 
 
-
-//FORM 
-echo' <style type="text/css">
+//FORM
+echo ' <style type="text/css">
 
     form {
         display: flex;
         flex-direction: column;
         width: 65%;
         margin: auto;
+    }
+
+    .form--Secondary {
+        width: 100%;
     }
 
     .form_item {
@@ -76,7 +87,7 @@ echo' <style type="text/css">
         font-size: 14px;
     }
 
-    #sub {
+    .sub {
         padding : 10px;
         background-color : #7287F1;
         color : #fefefe;
@@ -92,9 +103,8 @@ echo' <style type="text/css">
 </style>';
 
 
-
 //COMMUN - Card
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     .card {
         background-color : #fefefe;
@@ -124,9 +134,8 @@ echo' <style type="text/css">
 </style>';
 
 
-
 //COMMUN - Contenu
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     .contenu {
         text-align : center;
@@ -150,9 +159,8 @@ echo' <style type="text/css">
 </style>';
 
 
-
 //MODIFPROJET
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     .user {
         margin : 20px auto;
@@ -195,9 +203,8 @@ echo' <style type="text/css">
 </style>';
 
 
-
 //DEFAULT PAGE - Ordre de prio
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     #t_important {
         color : red;

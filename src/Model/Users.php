@@ -1,19 +1,21 @@
 <?php
+
 namespace Formation\MonApp\Model;
 
 use Formation\MonApp\Core\Model;
 
-class Users extends Model {
+class Users extends Model
+{
     public $id_users;
     public $nom;
     public $prenom;
     public $mail;
-    private $pwd;
+    public $pwd;
     public $avatar;
 
     /**
      * Get the value of mail
-     */ 
+     */
     public function getMail()
     {
         return $this->mail;
@@ -23,7 +25,7 @@ class Users extends Model {
      * Set the value of mail
      *
      * @return  self
-     */ 
+     */
     public function setMail($mail)
     {
         $this->mail = $mail;
@@ -33,7 +35,7 @@ class Users extends Model {
 
     /**
      * Get the value of pwd
-     */ 
+     */
     public function getPwd()
     {
         return $this->pwd;
@@ -43,7 +45,7 @@ class Users extends Model {
      * Set the value of pwd
      *
      * @return  self
-     */ 
+     */
     public function setPwd($pwd)
     {
         $this->pwd = $pwd;
@@ -101,7 +103,7 @@ class Users extends Model {
 
     /**
      * Get the value of avatar
-     */ 
+     */
     public function getAvatar()
     {
         return $this->avatar;
@@ -111,7 +113,7 @@ class Users extends Model {
      * Set the value of avatar
      *
      * @return  self
-     */ 
+     */
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;

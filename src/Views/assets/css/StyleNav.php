@@ -1,7 +1,7 @@
-<?php  
+<?php
 
 //NAV - Navigation personalisé
-echo' <style type="text/css">
+echo ' <style type="text/css">
 
     .nav_container {
         display: flex;

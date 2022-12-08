@@ -1,7 +1,7 @@
-<?php 
+<?php
 
 //FOOTER
-echo'<style type="text/css">
+echo '<style type="text/css">
 
     .footer {
         display: flex;
@@ -9,6 +9,7 @@ echo'<style type="text/css">
         border-top : solid 1px #3d3d3e3b;
         padding: 20px;
         margin-top: 60px;
+        font-size: 10px;
     }       
 
     ul {

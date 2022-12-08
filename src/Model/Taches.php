@@ -4,11 +4,12 @@ namespace Formation\MonApp\Model;
 
 use Formation\MonApp\Core\Model;
 
-class Taches  extends Model {
-    private $id_taches;
+class Taches extends Model
+{
     public $nom;
     public $description;
     public $priorite;
+    private $id_taches;
     private $id_users;
     private $id_projet;
     private $id_cycle;
@@ -16,7 +17,7 @@ class Taches  extends Model {
 
     /**
      * Get the value of id_taches
-     */ 
+     */
     public function getId_taches()
     {
         return $this->id_taches;
@@ -26,7 +27,7 @@ class Taches  extends Model {
      * Set the value of id_taches
      *
      * @return  self
-     */ 
+     */
     public function setId_taches($id_taches)
     {
         $this->id_taches = $id_taches;
@@ -36,7 +37,7 @@ class Taches  extends Model {
 
     /**
      * Get the value of nom
-     */ 
+     */
     public function getNom()
     {
         return $this->nom;
@@ -46,7 +47,7 @@ class Taches  extends Model {
      * Set the value of nom
      *
      * @return  self
-     */ 
+     */
     public function setNom($nom)
     {
         $this->nom = $nom;
@@ -56,7 +57,7 @@ class Taches  extends Model {
 
     /**
      * Get the value of description
-     */ 
+     */
     public function getDescription()
     {
         return $this->description;
@@ -66,7 +67,7 @@ class Taches  extends Model {
      * Set the value of description
      *
      * @return  self
-     */ 
+     */
     public function setDescription($description)
     {
         $this->description = $description;
@@ -76,7 +77,7 @@ class Taches  extends Model {
 
     /**
      * Get the value of priorite
-     */ 
+     */
     public function getPriorite()
     {
         return $this->priorite;
@@ -86,7 +87,7 @@ class Taches  extends Model {
      * Set the value of priorite
      *
      * @return  self
-     */ 
+     */
     public function setPriorite($priorite)
     {
         $this->priorite = $priorite;

@@ -4,17 +4,15 @@ namespace Formation\MonApp\Model;
 
 use Formation\MonApp\Core\Model;
 
-class Projets  extends Model {
+class Projets extends Model
+{
 
+    public $nom;
     private $id_projets;
-
-    public $nom;   
-
-
 
     /**
      * Get the value of id_projets
-     */ 
+     */
     public function getId_projets()
     {
         return $this->id_projets;
@@ -24,7 +22,7 @@ class Projets  extends Model {
      * Set the value of id_projets
      *
      * @return  self
-     */ 
+     */
     public function setId_projets($id_projets)
     {
         $this->id_projets = $id_projets;
@@ -34,7 +32,7 @@ class Projets  extends Model {
 
     /**
      * Get the value of nom
-     */ 
+     */
     public function getNom()
     {
         return $this->nom;
@@ -44,7 +42,7 @@ class Projets  extends Model {
      * Set the value of nom
      *
      * @return  self
-     */ 
+     */
     public function setNom($nom)
     {
         $this->nom = $nom;

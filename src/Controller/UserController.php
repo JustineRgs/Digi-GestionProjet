@@ -4,7 +4,6 @@ namespace Formation\MonApp\Controller;
 
 use Formation\MonApp\Core\Security;
 use Formation\MonApp\Core\Validate;
-use Formation\MonApp\Core\Model;
 use Formation\MonApp\Core\Views;
 use Formation\MonApp\Model\Users;
 
@@ -24,28 +23,78 @@ class UserController
                     $this->AfficheUsers();
                     break;
             }
-        } else if (isset($_GET['modif'])) {
-            switch ($_GET['modif']) {
-                case 'mod':
-                    $this->AfficheUsers();
-                    break;
-                default:
-                    $this->AfficheUsers();
-                    break;
-            }
         } else {
-            $this->AfficheUsers();
+            if (isset($_GET['modif'])) {
+                switch ($_GET['modif']) {
+                    case 'mod':
+                        $this->AfficheUsers();
+                        break;
+                    default:
+                        $this->AfficheUsers();
+                        break;
+                }
+            } else {
+                $this->AfficheUsers();
+            }
         }
     }
 
-    public function AfficheUsers(){
+    //READ
+
+    public function createUser()
+    {
+        $view = new Views('CreateUser', 'Création d\'un utilisateur');
+        if (isset($_POST['create'])) {
+            if ($_POST['pwd'] === $_POST['confirmpwd']) {
+                if (($message = $this->isValid()) === '') {
+                    unset($_POST['create']);
+                    unset($_POST['confirmpwd']);
+                    $_POST['pwd'] = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+                    if (Users::create()) {
+                        if (isset($_GET['project'])) {
+                            Users::AddUserToProject();
+                        }
+                        header('Location: index.php');
+                        echo 'L\'utilisateur a bien été créé';
+                    } else {
+                        $view->setVar('message', 'Echec de la création de l\'utilisateur');
+                    }
+                } else {
+                    $view->setVar('message', $message);
+                }
+            } else {
+                $view->setVar('message', 'Les mots de passe ne sont pas identique');
+            }
+        }
+        $view->render();
+    }
+
+
+    // CREATE : USER
+
+    private function isValid()
+    {
+        $return = '';
+        $return .= Validate::ValidateEmail($_POST['mail']);
+        $return .= Validate::verifyConfirmPassword($_POST['pwd'], $_POST['confirmpwd']);
+        $user = Users::getByAttribute('mail', $_POST['mail']);
+        if (count($user) > 0) {
+            $return .= "L'utilisateur existe déjà";
+        }
+
+        return $return;
+    }
+
+    //Validation de formulaire
+
+    public function AfficheUsers()
+    {
         $view = new Views('Profile', 'Votre profil');
         if (Security::isConnected()) {
             $view->setVar('connected', true);
         } else {
             header('location: index.php');
         }
-
         if (isset($_POST['submit'])) {
             unset($_POST['submit']);
             if (isset($_POST['nom'])) {
@@ -61,12 +110,43 @@ class UserController
             Users::ChangeProfil();
         }
 
-        // Upload de l'avatar
-        
+        // Si le formulaire de changement de mot de passe est détecté
+        if (isset($_POST['submitPwd'])) {
+            unset($_POST['submitPwd']);
+            if (isset($_POST['password']) && isset($_POST['newpassword']) && isset($_POST['newvrfpassword'])) {
+                // Verif du password actuel
+                $user_id = $_SESSION['id'];
+                $user = Users::getByAttribute('id_users', $user_id); // Recuperation De l'utilisateur
+                foreach ($user as $users => $value) { // parcours du tableau user
+                    foreach ($value as $val => $key) {
+                        if ($val === 'pwd') { // Vérification de lexstance de pwd
+                            $mdpBdd = $key; // Attribution de la valeur de pwd a mdpBdd
+                        }
+                    }
+                }
+                if (!password_verify(
+                    $_POST['password'],
+                    $mdpBdd
+                )) { // Fonction permettant de vérifier le nouveau mot de passe a l'actuel
+                    $view->setVar('messagepwd', 'Votre mot de passe n\'est pas le même que l\'actuel');
+                    $view->render();
+                    die;
+                }
+                if ($_POST['newpassword'] === $_POST['newvrfpassword']) {
+                    $newpassword_hash = password_hash($_POST['newpassword'], PASSWORD_DEFAULT);
+                    if (Users::ChangePwd($newpassword_hash)) {
+                        header('location: index.php?page=profile');
+                    } else {
+                        $view->setVar('messagepwd', 'Erreur dans le changement de mot de passe');
+                    }
+                }
+            }
+        }
+        // UPLOAD : AVATAR Photo de profil, creation d'un dossier, verif de lextension et update de avatar users
         if (isset($_POST['avatar'])) {
 
             // Vérification de l'existance d'un dossier upload et id_users
-            $dossier = "upload/" . $_SESSION['id'] . "/";
+            $dossier = "upload/".$_SESSION['id']."/";
             if (!is_dir($dossier)) {
                 mkdir($dossier);
             }
@@ -76,126 +156,45 @@ class UserController
                 mkdir($dossier);
             }
 
-            // Vérification de l'extension de l'image
+            //Vérification de l'extension de l'image
             $ext = ['.jpg', '.jpeg', '.png'];
             $fichier = basename($_FILES['file']['name']);
-            // On coupe le mot le met en minuscule et on recup la fin apres le point
+            //On coupe le mot - On le met en minuscule - On recup la fin apres le point
             $fichier_extension = strtolower(substr(strrchr($fichier, '.'), 1));
 
             // Vérification de la taille de l'image
             $poidsMax = 524288000;
             if ($poidsMax <= $_FILES['file']['size']) {
                 $view->setVar('message', 'Cette image est trop grosse');
+                $view->setVar('users', Users::getAll());
+                $view->render();
                 die;
             }
 
-            // On vérifie si l'extension de notre fichier
-            // correspond au tableau d'extension autorisé
-            foreach($ext as $value){
-                if(!$value = $fichier_extension){
-                    $view->setVar('message', 'L\'extesion n\'est pas valide');
+            // On vérifie si extension fichier = extension autorisé
+            foreach ($ext as $value) {
+                if (!$value = $fichier_extension) {
+                    $view->setVar('message', 'L\'extension n\'est pas valide');
+                    $view->setVar('users', Users::getAll());
+                    $view->render();
                     die;
                 }
             }
 
             $fichier = 'avatar_'.$_SESSION['id'];
-            $fichier .= '.'.$fichier_extension;
-            $resultat = move_uploaded_file($_FILES['file']['tmp_name'], $dossier.$fichier);
-            // var_dump($_FILES['file']['tmp_name'], $dossier.$fichier);
-            Users::ChangeAvatar($fichier);
+            $fichierext = $fichier.'.'.$fichier_extension;
+            $resultat = move_uploaded_file($_FILES['file']['tmp_name'], $dossier.$fichierext);
 
-            if(!$resultat){
-               $view->setVar('message', 'L\'image ne s\'est pas enregistrer');
-            }else{
-                $view->setVar('message', 'Votre image est bien upload et enregistrer en tant que photo de profil');
+            Users::ChangeAvatar($fichierext);
+
+            if (!$resultat) {
+                $view->setVar('message', 'L\'image ne s\'est pas enregistrer');
+            } else {
+                $view->setVar('message', 'Votre avatar est maintenant à jour!');
             }
-            // Création de la colone avatar dans user et creation du SESSION Avatar dans connect_user et ici aussi    
+            // Création de la colone avatar dans user et creation du SESSION Avatar dans connect_user et ici aussi
         }
-        // Création si pas d'existance du dossier
-        // Upload de l'image dans le dossier
-        // Création en base de données de la colonne avatar dans users avec nom de l'image
         $view->setVar('users', Users::getAll());
         $view->render();
-    }
-
-    // Photo de profil, creation d'un dossier, verif de lextension et update de avatar users
-
-    public function createUser(){
-        $view = new Views('CreateUser', 'Création d\'un utilisateur');
-        if (isset($_POST['create'])) {
-            if (($message = $this->isValid()) === '') {
-                unset($_POST['create']);
-                unset($_POST['confirmpwd']);
-                $_POST['pwd'] = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
-                // $_POST['avatar'] = 'avatardefault.png';
-                if (Users::create()) {
-                    if (isset($_GET['project'])){
-                        Users::AddUserToProject();
-                    }
-                    // $user = Users::getAll(); // Debut
-                    // $userOk = false;
-                    // foreach($user as $use=>$key){
-                    //     foreach($key as $k=>$value){
-                    //         if($value === 'prenom' && $value === $_POST['prenom'] && $value === 'nom' && $value['nom'] === $_POST['nom'] && $value === 'mail' && $value['mail'] === $_POST['mail']){
-                    //             $userOk = true;
-                    //         }
-                    //         var_dump($value);
-                    //         echo($k);
-                    //         if($key === 'id'){
-                    //             $use = $key;
-                    //         }
-                    //     }
-                    // }
-
-                    // if($userOk = true){
-                    //     Model::getSession('users', $use);
-                    //     $tab = $user[0]; //Récupération des valeurs de use dans tab;
-                    //     foreach($tab as $key=>$value){  // Parcours du tableau
-                    //         if($key == 'prenom'){  // Récupération des valeurs de key et vérification de ressemblance
-                    //             $_SESSION['prenom'] = $value; // Assignation de la valeur aux SESSION
-                    //         }
-                    //         if($key == 'nom'){
-                    //             $_SESSION['nom'] = $value;
-                    //         }
-                    //         if($key == 'mail'){
-                    //             $_SESSION['mail'] = $value;
-                    //         }
-                    //         if($key == 'avatar'){
-                    //             $_SESSION['avatar']= $value;
-                    //         }
-                    //         if($key == 'id'){
-                    //             $_SESSION['id'] = $value;
-                    //         }
-                    //         if($key == 'pwd'){
-                    //             $_SESSION['pwd'] = $value;
-                    //         }
-                    //     }
-                    //     $_SESSION['connected'] = true;
-                    //     $connected = true;
-                    //     Security::isConnected();
-                        header('Location: index.php');
-                        echo 'L\'utilisateur a bien été créé';
-                    // }
-                    
-                } else {
-                    echo "Une erreur est survenue";
-                }
-            } else {
-                $view->setVar('message', $message);
-            }
-        }
-        $view->render();
-    }
-
-    private function isValid()
-    {
-        $return = '';
-        $return .= Validate::ValidateEmail($_POST['mail']);
-        $return .= Validate::verifyConfirmPassword($_POST['pwd'], $_POST['confirmpwd']);
-        $user = Users::getByAttribute('mail', $_POST['mail']);
-        if (count($user) > 0) {
-            $return .= "L'utilisateur existe déjà";
-        }
-        return $return;
     }
 }

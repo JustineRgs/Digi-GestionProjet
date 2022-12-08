@@ -1,34 +1,27 @@
 <?php
+
 namespace Formation\MonApp\Core;
 
-class Views {
+class Views
+{
     private $folder;
     private $vars;
     private $page;
 
-    public function __construct($content, $title) {
+    public function __construct($content, $title)
+    {
         $this->folder = dirname(__FILE__).'/../Views/Template/';
         $this->page = dirname(__FILE__).'/../Views/'.$content.'.php';
         $this->vars['title'] = $title;
     }
 
-    private function getHead() {
-        return $this->folder.'head.php';
-    }
-
-    public function setVar($nomvariable,$value) {
+    public function setVar($nomvariable, $value)
+    {
         $this->vars[$nomvariable] = $value;
     }
 
-    private function getHeader() {
-        return $this->folder.'header.php';
-    }
-
-    private function getFooter() {
-        return $this->folder.'footer.php';
-    }
-
-    public function render() {
+    public function render()
+    {
         extract($this->vars);
         ob_start();
         include_once($this->getHead());
@@ -36,5 +29,20 @@ class Views {
         include_once($this->page);
         include_once($this->getFooter());
         ob_end_flush();
+    }
+
+    private function getHead()
+    {
+        return $this->folder.'head.php';
+    }
+
+    private function getHeader()
+    {
+        return $this->folder.'header.php';
+    }
+
+    private function getFooter()
+    {
+        return $this->folder.'footer.php';
     }
 }

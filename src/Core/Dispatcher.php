@@ -5,11 +5,12 @@ namespace Formation\MonApp\Core;
 use Formation\MonApp\Controller\DefaultPage;
 use Formation\MonApp\Controller\ProjectController;
 use Formation\MonApp\Controller\UserController;
-use Formation\MonApp\Core\Security;
 
-class Dispatcher {
+class Dispatcher
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         if (isset($_GET['session'])) {
             session_start();
             session_destroy();
@@ -17,9 +18,6 @@ class Dispatcher {
         }
         if (isset($_GET['page'])) {
             switch ($_GET['page']) {
-                // case 'afficheusers':
-                //     new UserController();
-                //     break;
                 case 'project':
                     new ProjectController();
                     break;
